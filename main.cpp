@@ -65,3 +65,15 @@ void tao_dat(int i)
     
     }
 }
+void khoi_tao_mat_dat()
+{
+    for (int i = 0; i < sl_ground; i++)
+    {
+        ground[0][i] = '_';
+        //-------------
+        tao_dat(i);
+    }
+    ground[0][sl_ground] = '\0';
+    ground[1][sl_ground] = '\0';
+    ground[2][sl_ground] = '\0';
+}
