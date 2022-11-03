@@ -62,7 +62,26 @@ void tao_dat(int i)
     {
         ground[1][i] = '`'; ground[2][i] = ' '; break;
     }
-    
+    case 4:
+    {
+        ground[1][i] = 248; ground[2][i] = ' '; break;
+    }
+    case 5:
+    {
+        ground[1][i] = ' '; ground[2][i] = '.'; break;
+    }
+    case 6:
+    {
+        ground[1][i] = ' '; ground[2][i] = '-'; break;
+    }
+    case 7:
+    {
+        ground[1][i] = ' '; ground[2][i] = '`'; break;
+    }
+    default:
+    {
+        ground[1][i] = ' '; ground[2][i] = ' '; break;
+    }
     }
 }
 void khoi_tao_mat_dat()
