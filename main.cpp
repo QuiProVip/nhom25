@@ -30,3 +30,38 @@ string tree[5]
         " + ",
         " + ",
 };
+void draw_dino(int x, int y);
+void khoi_tao_mat_dat();
+int main()
+{
+        
+}       
+void draw_dino(int x, int y)
+{
+    for (int i = 0; i < 6; i++)
+    {
+        gotoXY(x, y);
+        cout << dino[i];
+        y++;
+    }
+}
+void tao_dat(int i)
+{
+    int v = rand() % (15 - 1 + 1) + 1;// [1,15]
+    switch (v)
+    {
+    case 1:
+    {
+        ground[1][i] = '.'; ground[2][i] = ' '; break;
+    }
+    case 2:
+    {
+        ground[1][i] = '-'; ground[2][i] = ' '; break;
+    }
+    case 3:
+    {
+        ground[1][i] = '`'; ground[2][i] = ' '; break;
+    }
+    
+    }
+}
