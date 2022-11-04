@@ -34,6 +34,7 @@ void draw_dino(int x, int y);
 void khoi_tao_mat_dat();
 void tao_dat(int i);
 void draw_mat_dat();
+void draw_wall();
 int main()
 {
         
@@ -114,5 +115,18 @@ void draw_mat_dat()
     {
         gotoXY(xdat, ydat + i);
         cout << ground[i];
+    }
+}
+void draw_wall()
+{
+    for (int y = 2; y <= ydat + 3; y++)
+    {
+        gotoXY(xdat - 1, y); cout << "=";
+        gotoXY(xdat + sl_ground + 1, y); cout << "=";
+    }
+    for (int x = xdat; x <= xdat + sl_ground + 1; x++)
+    {
+        gotoXY(x, 2); cout << "=";
+        gotoXY(x, ydat + 3); cout << "=";
     }
 }
