@@ -35,6 +35,9 @@ void khoi_tao_mat_dat();
 void tao_dat(int i);
 void draw_mat_dat();
 void draw_wall();
+void xoa(int a[], int &n, int vt);
+void di_chuyen_tree(int t[], int &nt);
+void clear_tree(int x);
 int main()
 {
         
