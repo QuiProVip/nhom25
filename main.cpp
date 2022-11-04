@@ -130,3 +130,27 @@ void draw_wall()
         gotoXY(x, ydat + 3); cout << "=";
     }
 }
+void xoa(int a[], int &n, int vt)
+{
+	for (int i = vt;i < n - 1;i++)
+	{
+		a[i] = a[i + 1];
+	}
+	n--;
+}
+void di_chuyen_tree(int t[], int &nt)
+{
+	if (t[0] == xdat)
+	{
+		xoa(t, nt, 0);
+		clear_tree(xdat);
+		clear_tree(xdat-1);
+		clear_tree(xdat-2);
+	}
+	for (int i = 0;i < nt;i++)
+	{
+		draw_tree(t[i]);
+		clear_tree(t[i]);
+		t[i]--;
+	}
+}
