@@ -32,6 +32,8 @@ string tree[5]
 };
 void draw_dino(int x, int y);
 void khoi_tao_mat_dat();
+void tao_dat(int i);
+void draw_mat_dat();
 int main()
 {
         
@@ -95,4 +97,22 @@ void khoi_tao_mat_dat()
     ground[0][sl_ground] = '\0';
     ground[1][sl_ground] = '\0';
     ground[2][sl_ground] = '\0';
+}
+void draw_mat_dat()
+{
+    if (kt_jump == false)
+    {
+        ground[0][xdino + 4 - xdat] = '^';
+        ground[0][xdino + 5 - xdat] = '^';
+    }
+    else
+    {
+        ground[0][xdino + 4 - xdat] = '_';
+        ground[0][xdino + 5 - xdat] = '_';
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        gotoXY(xdat, ydat + i);
+        cout << ground[i];
+    }
 }
