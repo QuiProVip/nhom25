@@ -156,4 +156,13 @@ void di_chuyen_tree(int t[], int &nt)
 		clear_tree(t[i]);
 		t[i]--;
 	}
+	void clear_tree(int x)
+{
+    int y = ydat - 5;
+    for (int i = 0; i < 5; i++)
+    {
+        gotoXY(x + 3, y + i);
+        cout << " ";
+    }
+}
 }
