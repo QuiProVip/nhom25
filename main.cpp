@@ -11,6 +11,7 @@ int xdat = 10; int ydat = ydino + h;
 char ground[3][sl_ground + 1];
 int jump = 16; bool kt_jump = false;
 int hiscore;
+int fix1;
 string dino[6] =
 {
         "           e-e ",
@@ -30,24 +31,25 @@ string tree[5]
         " + ",
         " + ",
 };
-void play();
-int menu();
-void help();
-void INTROGAME();
-void draw_dino(int x, int y);
-void khoi_tao_mat_dat();
-void draw_tree(int x); 
-bool kt_cham(int xtree, int x, int y);
-void tao_dat(int i);
+//==========================
+void play(); //
+int menu(); //
+void help(); //
+void XuatFile(); //
+void GhiFile(); //
+void draw_dino(int x, int y); //
+void tao_dat(int i); //
+void khoi_tao_mat_dat();//
+void draw_mat_dat();//
 void di_chuyen_mat_dat();
-bool game_over(int x, int y, int t[], int nt); 
-void draw_mat_dat();
-void draw_wall();
-void xoa(int a[], int &n, int vt);
-void di_chuyen_tree(int t[], int &nt);
-void clear_tree(int x);
-void XuatFile();
-void GhiFile();
+void draw_tree(int x); 
+void clear_tree(int x);//
+bool kt_cham(int xtree, int x, int y);
+void xoa(int a[], int& n, int vt);//
+void di_chuyen_tree(int t[], int& nt);//
+bool game_over(int x, int y, int t[], int nt); //
+void draw_wall(); // 
+void INTROGAME(); //
 int main()
 {
     INTROGAME();
@@ -73,7 +75,95 @@ int main()
         default:
             return KEY_ESC;
         }
-    }   
+    }
+}
+void INTROGAME()
+{
+    ShowCur();
+    system("MODE CON: COLS=150 LINES=48");  //COLS nScreenWidth
+    int x = nScreenWidth / 2 - 30;
+    int y = nScreenHeight / 2 - 5;
+    int n;
+    gotoXY(x, y);
+    cout << "________ _____                     _________                          ";
+    gotoXY(x, y + 1);
+    cout << "___  __ \\___(_)_______ ______      __  ____/______ ________ ___ _____ ";
+    gotoXY(x, y + 2);
+    cout << "__  / / /__  / __  __ \\_  __ \\     _  / __  _  __ `/__  __ `__ \\_  _ \\";
+    gotoXY(x, y + 3);
+    cout << "_  /_/ / _  /  _  / / // /_/ /     / /_/ /  / /_/ / _  / / / / //  __/";
+    gotoXY(x, y + 4);
+    cout << "/_____/  /_/   /_/ /_/ \\____/      \\____/   \\__,_/  /_/ /_/ /_/ \\___/ ";
+
+    while (!keyPressed())
+    {
+        Sleep(200);
+        gotoXY(x + 20, y + 6);
+        cout << "Press any key to continue";
+
+        Sleep(800);
+        gotoXY(x + 20, y + 6);
+        cout << "                         ";
+    }
+}
+int menu()
+{
+    int x = nScreenWidth / 2 - 30;
+    int y = nScreenHeight / 2 - 5;
+    string str;
+    ShowCur();
+    int maxmenu = 3;
+    string menu[3];
+    menu[0] = "NEW GAME";
+    menu[1] = "HELP";
+    menu[2] = "EXIT";
+    int line = 0;
+    while (1)
+    {
+        system("cls");
+        for (int i = 0; i < maxmenu; i++)
+            if (i != line)
+            {
+                TextColor(15);
+                gotoXY(nScreenWidth / 2 - 3, nScreenHeight / 2 - 3 + i);
+                cout << menu[i] << endl;
+            }
+            else
+            {
+                TextColor(12);
+                gotoXY(nScreenWidth / 2 - 3, nScreenHeight / 2 - 3 + i);
+                cout << menu[i] << endl;
+            }
+
+        int status = KEY_RIGHT;
+        if (keyPressed()) status = getKey();
+
+        switch (status)
+        {
+        case KEY_UP:
+            line--;
+            if (line == -1) line = maxmenu - 1;
+            break;
+        case KEY_DOWN:
+            line++;
+            if (line == maxmenu) line = 0;
+            break;
+        case KEY_ENTER:
+            system("cls");
+            return line;
+        }
+        Sleep(100);
+    }
+}
+void help()
+{
+    system("cls");
+    gotoXY(nScreenWidth / 2, 20);
+    cout << "HELP";
+    gotoXY(25, 22);
+    cout << "Nhan SPACE hoac phim MUI TEN DI LEN de dieu khien khung long vuot qua chuong ngai vat la cay xuong hoac chim";
+    gotoXY(65, 24);
+    system("pause");
 }
 void play()
 {
@@ -161,153 +251,6 @@ void play()
         Sleep(10);
     }
 }
-void help()
-{
-    system("cls");
-    gotoXY(nScreenWidth / 2, 20);
-    cout << "HELP";
-    gotoXY(25, 22);
-    cout << "Nhan SPACE hoac phim MUI TEN DI LEN de dieu khien khung long vuot qua chuong ngai vat la cay xuong hoac chim";
-    gotoXY(65, 24);
-    system("pause");
-}
-void INTROGAME()
-{
-    ShowCur();
-    system("MODE CON: COLS=150 LINES=48");  //COLS nScreenWidth
-
-    int x = nScreenWidth / 2 - 30;
-    int y = nScreenHeight / 2 - 5;
-    int n;
-    gotoXY(x, y);
-    cout << "________ _____                     _________                          ";
-    gotoXY(x, y + 1);
-    cout << "___  __ \\___(_)_______ ______      __  ____/______ ________ ___ _____ ";
-    gotoXY(x, y + 2);
-    cout << "__  / / /__  / __  __ \\_  __ \\     _  / __  _  __ `/__  __ `__ \\_  _ \\";
-    gotoXY(x, y + 3);
-    cout << "_  /_/ / _  /  _  / / // /_/ /     / /_/ /  / /_/ / _  / / / / //  __/";
-    gotoXY(x, y + 4);
-    cout << "/_____/  /_/   /_/ /_/ \\____/      \\____/   \\__,_/  /_/ /_/ /_/ \\___/ ";
-
-    while (!keyPressed())
-    {
-        Sleep(200);
-        gotoXY(x + 20, y + 6);
-        cout << "Press any key to continue";
-
-        Sleep(800);
-        gotoXY(x + 20, y + 6);
-        cout << "                         ";
-    }
-}
-int menu()
-{
-    int x = nScreenWidth / 2 - 30;
-    int y = nScreenHeight / 2 - 5;
-    string str;
-    ShowCur();
-    int maxmenu = 3;
-    string menu[3];
-    menu[0] = "NEW GAME";
-    menu[1] = "HELP";
-    menu[2] = "EXIT";
-    int line = 0;
-    while (1)
-    {
-        system("cls");
-        for (int i = 0; i < maxmenu; i++)
-            if (i != line)
-            {
-                TextColor(15);
-                gotoXY(nScreenWidth / 2 - 3, nScreenHeight / 2 - 3 + i);
-                cout << menu[i] << endl;
-            }
-            else
-            {
-                TextColor(12);
-                gotoXY(nScreenWidth / 2 - 3, nScreenHeight / 2 - 3 + i);
-                cout << menu[i] << endl;
-            }
-
-        int status = KEY_RIGHT;
-        if (keyPressed()) status = getKey();
-
-        switch (status)
-        {
-        case KEY_UP:
-            line--;
-            if (line == -1) line = maxmenu - 1;
-            break;
-        case KEY_DOWN:
-            line++;
-            if (line == maxmenu) line = 0;
-            break;
-        case KEY_ENTER:
-            system("cls");
-            return line;
-        }
-        Sleep(100);
-    }
-}
-void help()
-{
-    system("cls");
-    gotoXY(nScreenWidth / 2, 20);
-    cout << "HELP";
-    gotoXY(25, 22);
-    cout << "Nhan SPACE hoac phim MUI TEN DI LEN de dieu khien khung long vuot qua chuong ngai vat la cay xuong hoac chim";
-    gotoXY(65, 24);
-    system("pause");
-}
-void di_chuyen_mat_dat()
-{
-    //doi
-    for (int i = 0; i < sl_ground - 1; i++)
-    {
-        ground[1][i] = ground[1][i + 1];
-        ground[2][i] = ground[2][i + 1];
-    }
-    //chen
-    tao_dat(sl_ground - 1);
-    //draw
-    draw_mat_dat();
-}
-bool game_over(int x, int y, int t[], int nt)
-{
-    int a;
-    for (int i = 0; i < nt; i++)
-    {
-        if (kt_cham(t[i], x, y))
-        {
-            gotoXY(x, y);
-            cout << die;
-            gotoXY(x + 25, y - 5);
-            cout << "GAME OVER";
-            gotoXY(x + 17, y - 4);
-            if (!keyPressed())
-            {
-                Sleep(800);
-                gotoXY(x + 18, y - 3);
-                cout << "Press SPACE to continue";
-                a = getKey();
-                if (a == KEY_SPACE) 
-                {
-                    system("cls");
-                    fix1++;
-                    break;
-                }
-                else
-                {
-                    fix1 = 0;
-                    break;
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-}
 void draw_dino(int x, int y)
 {
     for (int i = 0; i < 6; i++)
@@ -356,26 +299,6 @@ void tao_dat(int i)
     }
     }
 }
-bool kt_cham(int xtree, int x, int y)
-{
-    int xchan_trai = x; int xchan_phai = x + 15;
-    int ychan = y + 5;
-    //-----
-    int xtree_max = xtree + 2;
-    int ytree = ydat - 5;
-    int ytree_max = ydat;
-    //---- fix vung va cham ----
-    xchan_trai += 2;
-    xchan_phai -= 6;
-    if ((xchan_phai >= xtree && xchan_phai <= xtree_max) || (xchan_trai >= xtree && xchan_trai <= xtree_max))
-    {
-        if (ychan >= ytree && ychan <= ytree_max)
-        {
-            return true;
-        }
-    }
-    return false;
-}
 void khoi_tao_mat_dat()
 {
     for (int i = 0; i < sl_ground; i++)
@@ -406,6 +329,19 @@ void draw_mat_dat()
         cout << ground[i];
     }
 }
+void di_chuyen_mat_dat()
+{
+    //doi
+    for (int i = 0; i < sl_ground - 1; i++)
+    {
+        ground[1][i] = ground[1][i + 1];
+        ground[2][i] = ground[2][i + 1];
+    }
+    //chen
+    tao_dat(sl_ground - 1);
+    //draw
+    draw_mat_dat();
+}
 void draw_tree(int x)
 {
     int y = ydat - 5;
@@ -413,6 +349,94 @@ void draw_tree(int x)
     {
         gotoXY(x, y + i);
         cout << tree[i];
+    }
+}
+void clear_tree(int x)//95
+{
+    int y = ydat - 5;
+    for (int i = 0; i < 5; i++)
+    {
+        gotoXY(x + 3, y + i);
+        cout << " ";
+    }
+}
+bool kt_cham(int xtree, int x, int y)
+{
+    int xchan_trai = x; int xchan_phai = x + 15;
+    int ychan = y + 5;
+    //-----
+    int xtree_max = xtree + 2;
+    int ytree = ydat - 5;
+    int ytree_max = ydat;
+    //---- fix vung va cham ----
+    xchan_trai += 2;
+    xchan_phai -= 6;
+    if ((xchan_phai >= xtree && xchan_phai <= xtree_max) || (xchan_trai >= xtree && xchan_trai <= xtree_max))
+    {
+        if (ychan >= ytree && ychan <= ytree_max)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+void xoa(int a[], int& n, int vt)
+{
+    for (int i = vt; i < n - 1; i++)
+    {
+        a[i] = a[i + 1];
+    }
+    n--;
+}
+void di_chuyen_tree(int t[], int& nt)
+{
+    if (t[0] == xdat)
+    {
+        xoa(t, nt, 0);
+        clear_tree(xdat);
+        clear_tree(xdat - 1);
+        clear_tree(xdat - 2);
+    }
+    for (int i = 0; i < nt; i++)
+    {
+        draw_tree(t[i]);
+        clear_tree(t[i]);
+        t[i]--;
+    }
+}
+bool game_over(int x, int y, int t[], int nt)
+{
+    int a;
+    for (int i = 0; i < nt; i++)
+    {
+        if (kt_cham(t[i], x, y))
+        {
+            gotoXY(x, y);
+            cout << die;
+            gotoXY(x + 25, y - 5);
+            cout << "GAME OVER";
+            gotoXY(x + 17, y - 4);
+            if (!keyPressed())
+            {
+                Sleep(800);
+                gotoXY(x + 18, y - 3);
+                cout << "Press SPACE to continue";
+                a = getKey();
+                if (a == KEY_SPACE) 
+                {
+                    system("cls");
+                    fix1++;
+                    break;
+                }
+                else
+                {
+                    fix1 = 0;
+                    break;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }
 void draw_wall()
@@ -426,38 +450,6 @@ void draw_wall()
     {
         gotoXY(x, 0); cout << "=";
         gotoXY(x, ydat + 3); cout << "=";
-    }
-}
-void xoa(int a[], int &n, int vt)
-{
-	for (int i = vt;i < n - 1;i++)
-	{
-		a[i] = a[i + 1];
-	}
-	n--;
-}
-void di_chuyen_tree(int t[], int &nt)
-{
-	if (t[0] == xdat)
-	{
-		xoa(t, nt, 0);
-		clear_tree(xdat);
-		clear_tree(xdat-1);
-		clear_tree(xdat-2);
-	}
-	for (int i = 0;i < nt;i++)
-	{
-		draw_tree(t[i]);
-		clear_tree(t[i]);
-		t[i]--;
-	}
-void clear_tree(int x)
-{
-    int y = ydat - 5;
-    for (int i = 0; i < 5; i++)
-    {
-        gotoXY(x + 3, y + i);
-        cout << " ";
     }
 }
 void GhiFile()
