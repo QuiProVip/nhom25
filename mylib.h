@@ -66,31 +66,43 @@ void TextColor(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
-void ShowCur(bool CursorVisibility)
+void ShowCur()
 {
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	CONSOLE_CURSOR_INFO cursor = { 1, CursorVisibility };
-	SetConsoleCursorInfo(handle, &cursor);
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	CONSOLE_CURSOR_INFO cursor;
+	cursor.dwSize = 1; cursor.bVisible = 0;
+	SetConsoleCursorInfo(console, &cursor);
 }
 //======= trả về mã phím người dùng bấm =========
-int inputKey()
+bool keyPressed()
 {
-	if (_kbhit())
+	return _kbhit();
+}
+enum KB_STATUS
+{
+	KEY_UP = 72,
+	KEY_DOWN = 80,
+	KEY_ENTER = 13,
+	KEY_ESC = 27,
+	KEY_SPACE = 32,
+	KEY_LEFT,
+	KEY_RIGHT
+};
+int getKey()
+{
+	int key = _getch();
+	switch (key)
 	{
-		int key = _getch();
-
-		if (key == 224)
-		{
-			key = _getch();
-			return key + 1000;
-		}
-
-		return key;
+	case KEY_UP:
+		return KEY_UP;
+	case KEY_DOWN:
+		return KEY_DOWN;
+	case KEY_SPACE:
+		return KEY_SPACE;
+	case KEY_ENTER:
+		return KEY_ENTER;
+	case KEY_ESC:
+		return KEY_ESC;
 	}
-	else
-	{
-		return KEY_NONE;
-	}
-
-	return KEY_NONE;
 }
