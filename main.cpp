@@ -30,6 +30,7 @@ string tree[5]
         " + ",
         " + ",
 };
+void play();
 void draw_dino(int x, int y);
 void khoi_tao_mat_dat();
 void tao_dat(int i);
@@ -41,7 +42,97 @@ void clear_tree(int x);
 int main()
 {
         
-}       
+}
+void play()
+{
+	//============== setup ========
+	int score = 0;
+	draw_wall();
+	int t[100];int nt = 0;int count = 0;
+	draw_dino(xdino,ydino);
+	khoi_tao_mat_dat();
+	draw_mat_dat();
+	int x = xdino;int y = ydino;
+	int check = 2;//2: dung im
+					//1: di len
+					//0: di xuong
+	//============ play ==========
+	while (true)
+	{
+		gotoXY(50, 1);
+		cout <<"Score: "<<score++;
+		if (count == 0)
+		{
+			t[nt++] = 95;
+			count = rand() % (65 - 35 + 1) + 35;//[35,65]
+		}
+		//---- xoa du lieu man hinh --------
+		//---------- in data -----
+		if (check != 2)
+		{
+			draw_dino(x, y);
+		}
+		di_chuyen_tree(t, nt);
+		if (game_over(x, y, t, nt) == true)
+		{
+			break;
+		}
+		//draw_tree(xtree);
+		//clear_tree(xtree);
+		//----- kt cham -------
+		/*if (kt_cham(xtree, x, y) == true)
+		{
+			gotoXY(x, y);
+			cout << die;
+			break;
+		}
+		xtree--;*/
+		di_chuyen_mat_dat();
+		//------- dieu khien --------
+		if (_kbhit())
+		{
+			char c = _getch();
+			if (c == -32)
+			{
+				c = _getch();
+				if (c == 72 && check == 2)
+				{
+					check = 1;kt_jump = true;
+				}
+			}
+		}
+		//------ di chuyen -------
+		if (check == 1)
+		{
+			gotoXY(x, y + h);
+			cout << space;
+			y--;
+		}
+		else if (check == 0)
+		{
+			gotoXY(x, y);
+			cout << space;
+			y++;
+		}
+		//------ kt bien -----
+		if (y == ydino - jump)
+		{
+			check = 0;
+		}
+		else if(y==ydino)
+		{
+			if (check != 2)
+			{
+				draw_dino(x, y);
+				check = 2;kt_jump = false;
+			}
+			
+		}
+		//------- speed -------
+		count--;
+		Sleep(10);
+	}
+}
 void draw_dino(int x, int y)
 {
     for (int i = 0; i < 6; i++)
