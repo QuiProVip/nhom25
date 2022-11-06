@@ -9,7 +9,7 @@ int h = 5;//hight
 int xdino = 25; int ydino = 17;
 int xdat = 10; int ydat = ydino + h;
 char ground[3][sl_ground + 1];
-int jump = 14; bool kt_jump = false;
+int jump = 16; bool kt_jump = false;
 int hiscore;
 string dino[6] =
 {
@@ -215,14 +215,14 @@ void draw_mat_dat()
 }
 void draw_wall()
 {
-    for (int y = 2; y <= ydat + 3; y++)
+    for (int y = 2; y <= ydat + 4; y++)
     {
-        gotoXY(xdat - 1, y); cout << "=";
-        gotoXY(xdat + sl_ground + 1, y); cout << "=";
+        gotoXY(xdat - 1, y-2); cout << "|";
+        gotoXY(xdat + sl_ground + 1, y - 3); cout << "|";
     }
     for (int x = xdat; x <= xdat + sl_ground + 1; x++)
     {
-        gotoXY(x, 2); cout << "=";
+        gotoXY(x, 0); cout << "=";
         gotoXY(x, ydat + 3); cout << "=";
     }
 }
