@@ -1,8 +1,9 @@
-﻿#pragma once // tránh đụng độ thư viện khi gọi chồng file lên nhau
+#pragma once // tránh đụng độ thư viện khi gọi chồng file lên nhau
 #include <stdio.h>
 #include <conio.h>
 #include<ctime> /* thư viện hỗ trợ về thời gian thực */
-#include "windows.h"// thư viện này bá đạo lắm nhé - chứa nhiều đồ chơi nek - cứ tìm hiểu dần dần s
+#include "windows.h"
+#pragma comment (lib, "winmm.lib")
 //======= lấy tọa độ x của con trỏ hiện tại =============
 #define KEY_NONE	-1
 #define nScreenWidth 150
