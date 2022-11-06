@@ -39,6 +39,8 @@ void draw_wall();
 void xoa(int a[], int &n, int vt);
 void di_chuyen_tree(int t[], int &nt);
 void clear_tree(int x);
+void XuatFile();
+void GhiFile();
 int main()
 {
         
@@ -256,4 +258,19 @@ void di_chuyen_tree(int t[], int &nt)
         cout << " ";
     }
 }
+}
+void GhiFile()
+{
+    ofstream FileOut;
+    FileOut.open("E:\\score.txt", ios_base::out);
+    FileOut << hiscore;
+    FileOut.close();
+}
+void XuatFile()
+{
+    ifstream FileIn;
+    FileIn.open("E:\\score.txt", ios_base::in);
+    FileIn >> hiscore;
+    cout << "HI Score: " << hiscore;
+    FileIn.close();
 }
