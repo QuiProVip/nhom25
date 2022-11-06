@@ -35,7 +35,9 @@ int menu();
 void INTROGAME();
 void draw_dino(int x, int y);
 void khoi_tao_mat_dat();
+void draw_tree(int x); 
 void tao_dat(int i);
+bool game_over(int x, int y, int t[], int nt); 
 void draw_mat_dat();
 void draw_wall();
 void xoa(int a[], int &n, int vt);
@@ -250,6 +252,41 @@ void help()
     gotoXY(65, 24);
     system("pause");
 }
+bool game_over(int x, int y, int t[], int nt)
+{
+    int a;
+    for (int i = 0; i < nt; i++)
+    {
+        if (kt_cham(t[i], x, y))
+        {
+            gotoXY(x, y);
+            cout << die;
+            gotoXY(x + 25, y - 5);
+            cout << "GAME OVER";
+            gotoXY(x + 17, y - 4);
+            if (!keyPressed())
+            {
+                Sleep(800);
+                gotoXY(x + 18, y - 3);
+                cout << "Press SPACE to continue";
+                a = getKey();
+                if (a == KEY_SPACE) 
+                {
+                    system("cls");
+                    fix1++;
+                    break;
+                }
+                else
+                {
+                    fix1 = 0;
+                    break;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+}
 void draw_dino(int x, int y)
 {
     for (int i = 0; i < 6; i++)
@@ -326,6 +363,15 @@ void draw_mat_dat()
     {
         gotoXY(xdat, ydat + i);
         cout << ground[i];
+    }
+}
+void draw_tree(int x)
+{
+    int y = ydat - 5;
+    for (int i = 0; i < 5; i++)
+    {
+        gotoXY(x, y + i);
+        cout << tree[i];
     }
 }
 void draw_wall()
