@@ -31,6 +31,8 @@ string tree[5]
         " + ",
 };
 void play();
+int menu();
+void INTROGAME();
 void draw_dino(int x, int y);
 void khoi_tao_mat_dat();
 void tao_dat(int i);
@@ -43,7 +45,31 @@ void XuatFile();
 void GhiFile();
 int main()
 {
-        
+     INTROGAME();
+    while (1)
+    {
+        system("MODE CON: COLS=150 LINES=48");
+        system("cls");
+        if (fix1 != 0)
+        {
+            play();
+            continue;
+
+        }
+        int choice = menu();
+
+        switch (choice)
+        {
+        case 0:
+            play();
+            break;
+        case 1:
+            help();
+            break;
+        default:
+            return KEY_ESC;
+        }
+    }   
 }
 void play()
 {
@@ -134,6 +160,95 @@ void play()
 		count--;
 		Sleep(10);
 	}
+}
+void INTROGAME()
+{
+    ShowCur();
+    system("MODE CON: COLS=150 LINES=48");  //COLS nScreenWidth
+
+    int x = nScreenWidth / 2 - 30;
+    int y = nScreenHeight / 2 - 5;
+    int n;
+    gotoXY(x, y);
+    cout << "________ _____                     _________                          ";
+    gotoXY(x, y + 1);
+    cout << "___  __ \\___(_)_______ ______      __  ____/______ ________ ___ _____ ";
+    gotoXY(x, y + 2);
+    cout << "__  / / /__  / __  __ \\_  __ \\     _  / __  _  __ `/__  __ `__ \\_  _ \\";
+    gotoXY(x, y + 3);
+    cout << "_  /_/ / _  /  _  / / // /_/ /     / /_/ /  / /_/ / _  / / / / //  __/";
+    gotoXY(x, y + 4);
+    cout << "/_____/  /_/   /_/ /_/ \\____/      \\____/   \\__,_/  /_/ /_/ /_/ \\___/ ";
+
+    while (!keyPressed())
+    {
+        Sleep(200);
+        gotoXY(x + 20, y + 6);
+        cout << "Press any key to continue";
+
+        Sleep(800);
+        gotoXY(x + 20, y + 6);
+        cout << "                         ";
+    }
+}
+int menu()
+{
+    int x = nScreenWidth / 2 - 30;
+    int y = nScreenHeight / 2 - 5;
+    string str;
+    ShowCur();
+    int maxmenu = 3;
+    string menu[3];
+    menu[0] = "NEW GAME";
+    menu[1] = "HELP";
+    menu[2] = "EXIT";
+    int line = 0;
+    while (1)
+    {
+        system("cls");
+        for (int i = 0; i < maxmenu; i++)
+            if (i != line)
+            {
+                TextColor(15);
+                gotoXY(nScreenWidth / 2 - 3, nScreenHeight / 2 - 3 + i);
+                cout << menu[i] << endl;
+            }
+            else
+            {
+                TextColor(12);
+                gotoXY(nScreenWidth / 2 - 3, nScreenHeight / 2 - 3 + i);
+                cout << menu[i] << endl;
+            }
+
+        int status = KEY_RIGHT;
+        if (keyPressed()) status = getKey();
+
+        switch (status)
+        {
+        case KEY_UP:
+            line--;
+            if (line == -1) line = maxmenu - 1;
+            break;
+        case KEY_DOWN:
+            line++;
+            if (line == maxmenu) line = 0;
+            break;
+        case KEY_ENTER:
+            system("cls");
+            return line;
+        }
+        Sleep(100);
+    }
+}
+void help()
+{
+    system("cls");
+    gotoXY(nScreenWidth / 2, 20);
+    cout << "HELP";
+    gotoXY(25, 22);
+    cout << "Nhan SPACE hoac phim MUI TEN DI LEN de dieu khien khung long vuot qua chuong ngai vat la cay xuong hoac chim";
+    gotoXY(65, 24);
+    system("pause");
 }
 void draw_dino(int x, int y)
 {
