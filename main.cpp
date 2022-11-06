@@ -37,6 +37,7 @@ void INTROGAME();
 void draw_dino(int x, int y);
 void khoi_tao_mat_dat();
 void draw_tree(int x); 
+bool kt_cham(int xtree, int x, int y);
 void tao_dat(int i);
 void di_chuyen_mat_dat();
 bool game_over(int x, int y, int t[], int nt); 
@@ -49,7 +50,7 @@ void XuatFile();
 void GhiFile();
 int main()
 {
-     INTROGAME();
+    INTROGAME();
     while (1)
     {
         system("MODE CON: COLS=150 LINES=48");
@@ -58,7 +59,6 @@ int main()
         {
             play();
             continue;
-
         }
         int choice = menu();
 
@@ -355,6 +355,26 @@ void tao_dat(int i)
         ground[1][i] = ' '; ground[2][i] = ' '; break;
     }
     }
+}
+bool kt_cham(int xtree, int x, int y)
+{
+    int xchan_trai = x; int xchan_phai = x + 15;
+    int ychan = y + 5;
+    //-----
+    int xtree_max = xtree + 2;
+    int ytree = ydat - 5;
+    int ytree_max = ydat;
+    //---- fix vung va cham ----
+    xchan_trai += 2;
+    xchan_phai -= 6;
+    if ((xchan_phai >= xtree && xchan_phai <= xtree_max) || (xchan_trai >= xtree && xchan_trai <= xtree_max))
+    {
+        if (ychan >= ytree && ychan <= ytree_max)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 void khoi_tao_mat_dat()
 {
